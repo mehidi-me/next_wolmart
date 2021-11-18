@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import SkeletonCard from "./SkeletonCard";
 import client from "../pages/api/client";
+import Link from "next/link";
 
 export default function AllProducts({ name, id, subCategory }) {
   const [activeCat, setActiveCat] = useState({});
@@ -30,13 +31,12 @@ export default function AllProducts({ name, id, subCategory }) {
       <div className="title-link-wrapper pb-1 mb-4">
         <h2 className="title ls-normal mb-0">{name}</h2>
 
-        <a
-          href="shop-boxed-banner.html"
-          className="font-size-normal font-weight-bold ls-25 mb-0"
-        >
-          More Products
-          <i className="w-icon-long-arrow-right" />
-        </a>
+        <Link href={"/products?categories=" + id}>
+          <a className="font-size-normal font-weight-bold ls-25 mb-0">
+            More Products
+            <i className="w-icon-long-arrow-right" />
+          </a>
+        </Link>
       </div>
       <div
         className="tab tab-nav-boxed tab-nav-outline "

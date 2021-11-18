@@ -68,6 +68,9 @@ const reducer = (state, action) => {
     case "GET_ALL_CATEGORY":
       return { ...state, ...action.payload };
       break;
+    case "SET_SETTING":
+      return { ...state, generalSettings: action.payload };
+      break;
 
     case "ADD_TO_WHISHLIST":
       return addToWishlist(state, action.payload);

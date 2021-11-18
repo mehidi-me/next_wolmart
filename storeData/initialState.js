@@ -5,6 +5,7 @@ const initialState = {
   cartData: [],
   whishlist: [],
   user: null,
+  generalSettings: {},
 };
 
 export default initialState;

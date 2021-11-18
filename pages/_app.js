@@ -14,10 +14,18 @@ import "reactjs-popup/dist/index.css";
 import { v1 as uuidv1 } from "uuid";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Head } from "next/document";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-function MyApp({ Component, pageProps, category, subCategory, childCategory }) {
+function MyApp({
+  Component,
+  pageProps,
+  category,
+  subCategory,
+  childCategory,
+  generalSettings,
+}) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -26,6 +34,9 @@ function MyApp({ Component, pageProps, category, subCategory, childCategory }) {
         type: "GET_ALL_CATEGORY",
         payload: { category, subCategory, childCategory },
       });
+    }
+    if (generalSettings) {
+      dispatch({ type: "SET_SETTING", payload: generalSettings });
     }
     const cartData = JSON.parse(localStorage.getItem("cartdata"));
     const whishlist = JSON.parse(localStorage.getItem("whishlist"));
@@ -87,6 +98,7 @@ function MyApp({ Component, pageProps, category, subCategory, childCategory }) {
         showOnShallow={true}
       />
       <ToastContainer theme="dark" />
+
       <Layout>
         <Component {...pageProps} />
       </Layout>
@@ -107,6 +119,7 @@ MyApp.getInitialProps = async (appContext1) => {
   } else {
     try {
       let category = await fetcher(client + "categories/all");
+      //let generalSettings = await fetcher(client + "general-settings");
       let subCategory = [];
       let childCategory = [];
 
@@ -117,6 +130,7 @@ MyApp.getInitialProps = async (appContext1) => {
         category: category.data,
         subCategory,
         childCategory,
+        //generalSettings: generalSettings.data[0],
       };
     } catch (error) {
       console.log("init error is: ", error);

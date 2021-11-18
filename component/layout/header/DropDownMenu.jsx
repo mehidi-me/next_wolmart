@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import AppContext from "../../../storeData/AppContext";
 
@@ -15,7 +16,9 @@ export default function DropDownMenu({
 
   return (
     <li>
-      <a href="">{name}</a>
+      <Link href={"/products?categories=" + id}>
+        <a>{name}</a>
+      </Link>
       <ul className={"megamenu " + classD}>
         {subCategory.length
           ? subCategory.map((v) => (
@@ -27,7 +30,9 @@ export default function DropDownMenu({
                     .filter((data) => data.parent_id == v.id)
                     .map((data) => (
                       <li key={data.id}>
-                        <a href="">{data.name}</a>
+                        <Link href={"/products?categories=" + data.id}>
+                          <a>{data.name}</a>
+                        </Link>
                       </li>
                     ))}
                 </ul>

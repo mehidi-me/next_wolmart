@@ -7,7 +7,7 @@ export default function NavBar() {
   const {
     state: { category, subCategory, childCategory },
   } = useContext(AppContext);
-
+  console.log(category);
   return (
     <div className="header-bottom sticky-content fix-top sticky-header has-dropdown">
       <div className="container" style={{ maxWidth: "5000px", width: "100%" }}>

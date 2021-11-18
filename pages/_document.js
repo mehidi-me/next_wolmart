@@ -13,21 +13,12 @@ class MyDocument extends Document {
           <meta charSet="UTF-8" />
           {/* <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" /> */}
 
-          <meta
-            name="keywords"
-            content="Marketplace ecommerce responsive HTML5 Template"
-          />
-          <meta
-            name="description"
-            content="Wolmart is powerful marketplace & ecommerce responsive Html5 Template."
-          />
-          <meta name="author" content="D-THEMES" />
+          <meta name="keywords" content="Shopsbd Mart" />
+          <meta name="description" content="Shopsbd Mart" />
+          <meta name="author" content="MEHIDI" />
+          <meta property="og:image" content="/assets/images/logo.jpeg" />
           {/* Favicon */}
-          <link
-            rel="icon"
-            type="image/png"
-            href="/assets/images/icons/favicon.png"
-          />
+          <link rel="icon" type="image/png" href="/assets/images/logo.jpeg" />
           {/* WebFont.js */}
 
           <link

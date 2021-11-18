@@ -9,7 +9,7 @@ import ProgressBar from "../../ProgressBar";
 export default function MenuBar() {
   const {
     dispatch,
-    state: { cartData, category },
+    state: { cartData, category, generalSettings },
   } = useContext(AppContext);
 
   const [loading, setLoading] = useState(false);
@@ -62,12 +62,7 @@ export default function MenuBar() {
 
           <Link href="/">
             <a className="logo ml-lg-0">
-              <img
-                src="assets/images/logo.png"
-                alt="logo"
-                width={144}
-                height={45}
-              />
+              <img src="/assets/images/logo.jpeg" alt="logo" width={45} />
             </a>
           </Link>
           <form

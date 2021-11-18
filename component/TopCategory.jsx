@@ -11,6 +11,7 @@ import "swiper/css/autoplay";
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import AppContext from "../storeData/AppContext";
+import Link from "next/link";
 
 SwiperCore.use([Autoplay]);
 
@@ -47,22 +48,23 @@ export default function TopCategory() {
             .map((v) => (
               <SwiperSlide key={v.id}>
                 <div className="swiper-slide category category-classic category-absolute overlay-zoom br-xs">
-                  <a href="shop-banner-sidebar.html" className="category-media">
-                    <img
-                      src={imgPath + v.banner}
-                      alt="Category"
-                      width={130}
-                      height={130}
-                    />
-                  </a>
+                  <Link href={"/products?categories=" + v.id}>
+                    <a className="category-media">
+                      <img
+                        src={imgPath + v.banner}
+                        alt="Category"
+                        width={130}
+                        height={130}
+                      />
+                    </a>
+                  </Link>
                   <div className="category-content">
                     <h4 className="category-name">{v.name}</h4>
-                    <a
-                      href="shop-banner-sidebar.html"
-                      className="btn btn-primary btn-link btn-underline"
-                    >
-                      Shop Now
-                    </a>
+                    <Link href={"/products?categories=" + v.id}>
+                      <a className="btn btn-primary btn-link btn-underline">
+                        Shop Now
+                      </a>
+                    </Link>
                   </div>
                 </div>
               </SwiperSlide>
