@@ -132,7 +132,7 @@ MyApp.getInitialProps = async (appContext1) => {
         //generalSettings: generalSettings.data[0],
       };
     } catch (error) {
-      console.log("init error is: ", error);
+      console.log("init error i: ", error);
       return {
         pageProps: {
           ...appProps.pageProps,
