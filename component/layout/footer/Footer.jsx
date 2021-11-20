@@ -169,7 +169,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="footer-middle">
+        {/* <div className="footer-middle">
           <div className="widget widget-category">
             <div className="category-box">
               <h6 className="category-name">Consumer Electric:</h6>
@@ -244,11 +244,11 @@ export default function Footer() {
               <a href="#">View all</a>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="footer-bottom">
           <div className="footer-left">
             <p className="copyright">
-              Copyright © 2021 Wolmart Store. All Rights Reserved.
+              Copyright © 2021 Shopsbdmart Store. All Rights Reserved.
             </p>
           </div>
           <div className="footer-right">
