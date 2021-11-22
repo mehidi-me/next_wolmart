@@ -15,12 +15,15 @@ export default function PopularProducts() {
 
   const getActiveCat = async (id) => {
     setLoading(true);
-    setActiveCat(category.find((v) => v.id == id));
-    const res = await fetch(`${client}products/category/${id}`);
-    const data = await res.json();
-    setProducts(data.data);
+    try {
+      setActiveCat(category.find((v) => v.id == id));
+      const res = await fetch(`${client}products/category/${id}`);
+      const data = await res.json();
+      setProducts(data.data);
+    } catch (error) {
+      console.log(error);
+    }
     setLoading(false);
-    console.log(data);
   };
 
   useEffect(() => {

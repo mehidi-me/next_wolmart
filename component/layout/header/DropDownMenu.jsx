@@ -23,7 +23,11 @@ export default function DropDownMenu({
         {subCategory.length
           ? subCategory.map((v) => (
               <li key={v.id}>
-                <h4 className="menu-title">{v.name}</h4>
+                <Link href={"/products?categories=" + v.id}>
+                  <h4 className="menu-title">
+                    <a>{v.name}</a>
+                  </h4>
+                </Link>
                 <hr className="divider" />
                 <ul>
                   {category

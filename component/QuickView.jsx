@@ -3,6 +3,20 @@ import AppContext from "../storeData/AppContext";
 import { add, remove, update } from "./cart/updateCart";
 import ImageGallery from "./productDetails/ImageGallery";
 import ProgressBar from "./ProgressBar";
+import {
+  FacebookIcon,
+  FacebookMessengerIcon,
+  FacebookMessengerShareButton,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  PinterestIcon,
+  PinterestShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from "react-share";
 
 export default function QuickView({ close, product, productImage, slug }) {
   const {
@@ -227,26 +241,36 @@ export default function QuickView({ close, product, productImage, slug }) {
               <div className="social-links-wrapper">
                 <div className="social-links">
                   <div className="social-icons social-no-color border-thin">
-                    <a
-                      href="#"
-                      className="social-icon social-facebook w-icon-facebook"
-                    />
-                    <a
-                      href="#"
-                      className="social-icon social-twitter w-icon-twitter"
-                    />
-                    <a
-                      href="#"
-                      className="social-icon social-pinterest fab fa-pinterest-p"
-                    />
-                    <a
-                      href="#"
-                      className="social-icon social-whatsapp fab fa-whatsapp"
-                    />
-                    <a
-                      href="#"
-                      className="social-icon social-youtube fab fa-linkedin-in"
-                    />
+                    <FacebookShareButton
+                      url={origin + "/product/" + product.slug}
+                      style={{ marginRight: "6px" }}
+                    >
+                      <FacebookIcon round size={32} />
+                    </FacebookShareButton>
+                    <FacebookMessengerShareButton
+                      url={origin + "/product/" + product.slug}
+                      style={{ marginRight: "6px" }}
+                    >
+                      <FacebookMessengerIcon round size={32} />
+                    </FacebookMessengerShareButton>
+                    <TwitterShareButton
+                      url={origin + "/product/" + product.slug}
+                      style={{ marginRight: "6px" }}
+                    >
+                      <TwitterIcon round size={32} />
+                    </TwitterShareButton>
+
+                    <WhatsappShareButton
+                      url={origin + "/product/" + product.slug}
+                      style={{ marginRight: "6px" }}
+                    >
+                      <WhatsappIcon round size={32} />
+                    </WhatsappShareButton>
+                    <LinkedinShareButton
+                      url={origin + "/product/" + product.slug}
+                    >
+                      <LinkedinIcon round size={32} />
+                    </LinkedinShareButton>
                   </div>
                 </div>
                 <span className="divider d-xs-show" />

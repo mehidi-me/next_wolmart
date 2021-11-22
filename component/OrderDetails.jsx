@@ -16,7 +16,7 @@ export default function OrderDetails() {
     try {
       const res = await fetch(client + path + id);
       const data = await res.json();
-
+      console.log(data);
       if (data.success) {
         if (data.data.length) {
           setData(data.data);
@@ -218,6 +218,15 @@ export default function OrderDetails() {
                       <th>{"Vat & Tax:"}</th>
                       <td>{orderDetails[0].tax}</td>
                     </tr>
+                    {orderDetails[0].coupon_discount != "৳0.000" ? (
+                      <tr>
+                        <th>{"Coupon Discount:"}</th>
+                        <td>
+                          {"- "}
+                          {orderDetails[0].coupon_discount}
+                        </td>
+                      </tr>
+                    ) : null}
                     <tr>
                       <th>Payment method:</th>
                       <td>{orderDetails[0].payment_type}</td>

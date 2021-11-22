@@ -2,11 +2,31 @@ import React, { useContext, useEffect, useState } from "react";
 import AppContext from "../../storeData/AppContext";
 import ImageGallery from "./ImageGallery";
 import parse from "html-react-parser";
-import client from "../../pages/api/client";
+import client, { imgPath } from "../../pages/api/client";
 import UserReviews from "./UserReviews";
 import RelatedProducts from "./RelatedProducts";
 import ProgressBar from "../ProgressBar";
 import { add, remove, update } from "../cart/updateCart";
+import {
+  FacebookIcon,
+  FacebookMessengerIcon,
+  FacebookMessengerShareButton,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  PinterestIcon,
+  PinterestShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from "react-share";
+import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
+const origin =
+  typeof window !== "undefined" && window.location.origin
+    ? window.location.origin
+    : "";
 
 export default function ProductDetails({ product, productImage, slug }) {
   const {
@@ -15,6 +35,9 @@ export default function ProductDetails({ product, productImage, slug }) {
   } = useContext(AppContext);
 
   const [reviews, setReviews] = useState([]);
+  const [moreProduct, setMoreProduct] = useState([]);
+
+  const [moreLoading, setMoreLoading] = useState(false);
 
   const [qty, setQty] = useState(1);
 
@@ -28,6 +51,18 @@ export default function ProductDetails({ product, productImage, slug }) {
       setReviews(data.data);
     }
     console.log(data);
+  };
+
+  const getMoreProduct = async () => {
+    setMoreLoading(true);
+    const res = await fetch(client + "products/random");
+    const data = await res.json();
+
+    if (data.success) {
+      setMoreProduct(data.data);
+    }
+    console.log(data);
+    setMoreLoading(false);
   };
 
   const addToWhishlist = (data, image) => {
@@ -83,6 +118,7 @@ export default function ProductDetails({ product, productImage, slug }) {
   };
 
   useEffect(() => {
+    getMoreProduct();
     getReviews(product.id);
   }, []);
   return (
@@ -279,26 +315,36 @@ export default function ProductDetails({ product, productImage, slug }) {
                     <div className="social-links-wrapper">
                       <div className="social-links">
                         <div className="social-icons social-no-color border-thin">
-                          <a
-                            href="#"
-                            className="social-icon social-facebook w-icon-facebook"
-                          />
-                          <a
-                            href="#"
-                            className="social-icon social-twitter w-icon-twitter"
-                          />
-                          <a
-                            href="#"
-                            className="social-icon social-pinterest fab fa-pinterest-p"
-                          />
-                          <a
-                            href="#"
-                            className="social-icon social-whatsapp fab fa-whatsapp"
-                          />
-                          <a
-                            href="#"
-                            className="social-icon social-youtube fab fa-linkedin-in"
-                          />
+                          <FacebookShareButton
+                            url={origin + "/product/" + product.slug}
+                            style={{ marginRight: "6px" }}
+                          >
+                            <FacebookIcon round size={32} />
+                          </FacebookShareButton>
+                          <FacebookMessengerShareButton
+                            url={origin + "/product/" + product.slug}
+                            style={{ marginRight: "6px" }}
+                          >
+                            <FacebookMessengerIcon round size={32} />
+                          </FacebookMessengerShareButton>
+                          <TwitterShareButton
+                            url={origin + "/product/" + product.slug}
+                            style={{ marginRight: "6px" }}
+                          >
+                            <TwitterIcon round size={32} />
+                          </TwitterShareButton>
+
+                          <WhatsappShareButton
+                            url={origin + "/product/" + product.slug}
+                            style={{ marginRight: "6px" }}
+                          >
+                            <WhatsappIcon round size={32} />
+                          </WhatsappShareButton>
+                          <LinkedinShareButton
+                            url={origin + "/product/" + product.slug}
+                          >
+                            <LinkedinIcon round size={32} />
+                          </LinkedinShareButton>
                         </div>
                       </div>
                       <span className="divider d-xs-show" />
@@ -361,13 +407,13 @@ export default function ProductDetails({ product, productImage, slug }) {
               <section className="related-product-section">
                 <div className="title-link-wrapper mb-4">
                   <h4 className="title">Related Products</h4>
-                  <a
+                  {/* <a
                     href="#"
                     className="btn btn-dark btn-link btn-slide-right btn-icon-right"
                   >
                     More Products
                     <i className="w-icon-long-arrow-right" />
-                  </a>
+                  </a> */}
                 </div>
                 <RelatedProducts product_id={product.id} />
               </section>
@@ -446,191 +492,137 @@ export default function ProductDetails({ product, productImage, slug }) {
                         More Products
                       </h4>
                     </div>
-                    <div className="swiper nav-top">
-                      <div
-                        className="swiper-container swiper-theme nav-top"
-                        data-swiper-options="{
-                                          'slidesPerView': 1,
-                                          'spaceBetween': 20,
-                                          'navigation': {
-                                              'prevEl': '.swiper-button-prev',
-                                              'nextEl': '.swiper-button-next'
-                                          }
-                                      }"
-                      >
-                        <div className="swiper-wrapper">
-                          <div className="widget-col swiper-slide">
-                            <div className="product product-widget">
-                              <figure className="product-media">
-                                <a href="#">
-                                  <img
-                                    src="assets/images/shop/13.jpg"
-                                    alt="Product"
-                                    width={100}
-                                    height={113}
-                                  />
-                                </a>
-                              </figure>
-                              <div className="product-details">
-                                <h4 className="product-name">
-                                  <a href="#">Smart Watch</a>
-                                </h4>
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "100%" }}
-                                    />
-                                    <span className="tooltiptext tooltip-top" />
-                                  </div>
-                                </div>
-                                <div className="product-price">
-                                  $80.00 - $90.00
+                    <div className=" nav-top">
+                      {moreLoading ? (
+                        <>
+                          <div className="product product-widget">
+                            <figure className="product-media">
+                              <Skeleton width={100} height={113} />
+                            </figure>
+                            <div className="product-details">
+                              <h4 className="product-name">
+                                <Skeleton />
+                              </h4>
+                              <div className="ratings-container">
+                                <div className="ratings-full">
+                                  <span className="tooltiptext tooltip-top" />
                                 </div>
                               </div>
-                            </div>
-                            <div className="product product-widget">
-                              <figure className="product-media">
-                                <a href="#">
-                                  <img
-                                    src="assets/images/shop/14.jpg"
-                                    alt="Product"
-                                    width={100}
-                                    height={113}
-                                  />
-                                </a>
-                              </figure>
-                              <div className="product-details">
-                                <h4 className="product-name">
-                                  <a href="#">Sky Medical Facility</a>
-                                </h4>
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "80%" }}
-                                    />
-                                    <span className="tooltiptext tooltip-top" />
-                                  </div>
-                                </div>
-                                <div className="product-price">$58.00</div>
-                              </div>
-                            </div>
-                            <div className="product product-widget">
-                              <figure className="product-media">
-                                <a href="#">
-                                  <img
-                                    src="assets/images/shop/15.jpg"
-                                    alt="Product"
-                                    width={100}
-                                    height={113}
-                                  />
-                                </a>
-                              </figure>
-                              <div className="product-details">
-                                <h4 className="product-name">
-                                  <a href="#">Black Stunt Motor</a>
-                                </h4>
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "60%" }}
-                                    />
-                                    <span className="tooltiptext tooltip-top" />
-                                  </div>
-                                </div>
-                                <div className="product-price">$374.00</div>
+                              <div className="product-price">
+                                <Skeleton />
                               </div>
                             </div>
                           </div>
-                          <div className="widget-col swiper-slide">
-                            <div className="product product-widget">
-                              <figure className="product-media">
-                                <a href="#">
-                                  <img
-                                    src="assets/images/shop/16.jpg"
-                                    alt="Product"
-                                    width={100}
-                                    height={113}
-                                  />
-                                </a>
-                              </figure>
-                              <div className="product-details">
-                                <h4 className="product-name">
-                                  <a href="#">Skate Pan</a>
-                                </h4>
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "100%" }}
-                                    />
-                                    <span className="tooltiptext tooltip-top" />
-                                  </div>
+                          <div className="product product-widget">
+                            <figure className="product-media">
+                              <Skeleton width={100} height={113} />
+                            </figure>
+                            <div className="product-details">
+                              <h4 className="product-name">
+                                <Skeleton />
+                              </h4>
+                              <div className="ratings-container">
+                                <div className="ratings-full">
+                                  <span className="tooltiptext tooltip-top" />
                                 </div>
-                                <div className="product-price">$278.00</div>
                               </div>
-                            </div>
-                            <div className="product product-widget">
-                              <figure className="product-media">
-                                <a href="#">
-                                  <img
-                                    src="assets/images/shop/17.jpg"
-                                    alt="Product"
-                                    width={100}
-                                    height={113}
-                                  />
-                                </a>
-                              </figure>
-                              <div className="product-details">
-                                <h4 className="product-name">
-                                  <a href="#">Modern Cooker</a>
-                                </h4>
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "80%" }}
-                                    />
-                                    <span className="tooltiptext tooltip-top" />
-                                  </div>
-                                </div>
-                                <div className="product-price">$324.00</div>
-                              </div>
-                            </div>
-                            <div className="product product-widget">
-                              <figure className="product-media">
-                                <a href="#">
-                                  <img
-                                    src="assets/images/shop/18.jpg"
-                                    alt="Product"
-                                    width={100}
-                                    height={113}
-                                  />
-                                </a>
-                              </figure>
-                              <div className="product-details">
-                                <h4 className="product-name">
-                                  <a href="#">CT Machine</a>
-                                </h4>
-                                <div className="ratings-container">
-                                  <div className="ratings-full">
-                                    <span
-                                      className="ratings"
-                                      style={{ width: "100%" }}
-                                    />
-                                    <span className="tooltiptext tooltip-top" />
-                                  </div>
-                                </div>
-                                <div className="product-price">$236.00</div>
+                              <div className="product-price">
+                                <Skeleton />
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <button className="swiper-button-next" />
-                        <button className="swiper-button-prev" />
-                      </div>
+                          <div className="product product-widget">
+                            <figure className="product-media">
+                              <Skeleton width={100} height={113} />
+                            </figure>
+                            <div className="product-details">
+                              <h4 className="product-name">
+                                <Skeleton />
+                              </h4>
+                              <div className="ratings-container">
+                                <div className="ratings-full">
+                                  <span className="tooltiptext tooltip-top" />
+                                </div>
+                              </div>
+                              <div className="product-price">
+                                <Skeleton />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="product product-widget">
+                            <figure className="product-media">
+                              <Skeleton width={100} height={113} />
+                            </figure>
+                            <div className="product-details">
+                              <h4 className="product-name">
+                                <Skeleton />
+                              </h4>
+                              <div className="ratings-container">
+                                <div className="ratings-full">
+                                  <span className="tooltiptext tooltip-top" />
+                                </div>
+                              </div>
+                              <div className="product-price">
+                                <Skeleton />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="product product-widget">
+                            <figure className="product-media">
+                              <Skeleton width={100} height={113} />
+                            </figure>
+                            <div className="product-details">
+                              <h4 className="product-name">
+                                <Skeleton />
+                              </h4>
+                              <div className="ratings-container">
+                                <div className="ratings-full">
+                                  <span className="tooltiptext tooltip-top" />
+                                </div>
+                              </div>
+                              <div className="product-price">
+                                <Skeleton />
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : moreProduct.length ? (
+                        moreProduct.map((v) => (
+                          <div className="product product-widget" key={v.id}>
+                            <figure className="product-media">
+                              <Link href={`/product/${v.slug}`}>
+                                <a>
+                                  <img
+                                    src={imgPath + v.thumbnail_image}
+                                    alt="Product"
+                                    width={100}
+                                    height={113}
+                                  />
+                                </a>
+                              </Link>
+                            </figure>
+                            <div className="product-details">
+                              <h4 className="product-name">
+                                <Link href={`/product/${v.slug}`}>
+                                  <a>{v.name}</a>
+                                </Link>
+                              </h4>
+                              <div className="ratings-container">
+                                <div className="ratings-full">
+                                  <span
+                                    className="ratings"
+                                    style={{ width: `${v.rating * 10}%` }}
+                                  />
+                                  <span className="tooltiptext tooltip-top" />
+                                </div>
+                              </div>
+                              <div className="product-price">
+                                {v.base_price}
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      ) : null}
                     </div>
                   </div>
                 </div>

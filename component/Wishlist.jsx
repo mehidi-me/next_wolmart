@@ -55,7 +55,7 @@ export default function Wishlist() {
                 <tr>
                   <td className="product-thumbnail">
                     <div className="p-relative">
-                      <a href="product-default.html">
+                      <Link href={`/product/${v.slug}`}>
                         <figure>
                           <img
                             src={imgPath + v.image}
@@ -64,7 +64,7 @@ export default function Wishlist() {
                             height={338}
                           />
                         </figure>
-                      </a>
+                      </Link>
                       <button
                         type="submit"
                         className="btn btn-close"
@@ -106,7 +106,7 @@ export default function Wishlist() {
               ))}
             </tbody>
           </table>
-          <div className="social-links">
+          {/* <div className="social-links">
             <label>Share On:</label>
             <div className="social-icons social-no-color border-thin">
               <a
@@ -130,7 +130,7 @@ export default function Wishlist() {
                 className="social-icon social-whatsapp fab fa-whatsapp"
               />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* End of PageContent */}

@@ -20,6 +20,7 @@ const Checkout = () => {
   });
   const [loading, setLoading] = useState(false);
   const [oLoading, setoLoading] = useState(false);
+  const [cLoading, setcLoading] = useState(false);
 
   const updateaddressincart = async (address_id) => {
     try {
@@ -52,7 +53,7 @@ const Checkout = () => {
         client + "cart-summary/" + localStorage.getItem("uid") + "/0"
       );
       const data = await res.json();
-
+      console.log("cardSummary", data);
       if (data.grand_total_value) {
         return data;
       } else {
@@ -81,7 +82,7 @@ const Checkout = () => {
         headers: { "Content-type": "application/json;charset=utf-8" },
       });
       const data = await res.json();
-
+      console.log("summary", data);
       if (data.result) {
         const summary = await getCartSummary();
         if (summary) {
@@ -161,6 +162,71 @@ const Checkout = () => {
     }
     setoLoading(false);
   };
+
+  const couponSubmit = async (e) => {
+    e.preventDefault();
+    const code = e.target[0].value;
+    if (code) {
+      setcLoading(true);
+      try {
+        const body = {
+          user_id: localStorage.getItem("uid"),
+          id: user.id,
+          coupon_code: code,
+        };
+        const res = await fetch(client + "coupon-apply", {
+          method: "post",
+          body: JSON.stringify(body),
+          mode: "cors",
+          headers: { "Content-type": "application/json;charset=utf-8" },
+        });
+        const data = await res.json();
+        console.log(data);
+        if (data.result) {
+          toast.success(data.message);
+          getAddress(user.id);
+        } else {
+          if (data.message) {
+            toast.error(data.message);
+          } else {
+            toast.error("Something wrong try again!");
+          }
+        }
+        //   console.log(data);
+      } catch (error) {
+        console.log(error);
+        toast.error("Something wrong try again!");
+      }
+      setcLoading(false);
+    } else {
+      toast.warning("Enter coupon code!");
+    }
+  };
+
+  const removeCoupon = async () => {
+    try {
+      const body = {
+        user_id: localStorage.getItem("uid"),
+      };
+      const res = await fetch(client + "coupon-remove", {
+        method: "post",
+        body: JSON.stringify(body),
+        mode: "cors",
+        headers: { "Content-type": "application/json;charset=utf-8" },
+      });
+      const data = await res.json();
+
+      if (data.result) {
+        toast.success(data.message);
+        getAddress(user.id);
+      } else {
+        toast.error("Something wrong try again!");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something wrong try again!");
+    }
+  };
   useEffect(() => {
     if (user) {
       if (user.id) {
@@ -217,6 +283,7 @@ const Checkout = () => {
                     {", "}
                     {address.phone}
                     <button
+                      disabled={cLoading || oLoading}
                       onClick={() => route.push("/user/address")}
                       className="btn btn-dark btn-rounded ml-5"
                     >
@@ -225,7 +292,7 @@ const Checkout = () => {
                   </p>
 
                   <div className="mt-10" style={{ width: "100%" }}>
-                    <form className="coupon">
+                    <form className="coupon" onSubmit={couponSubmit}>
                       <h5 className="title coupon-title font-weight-bold text-uppercase">
                         Coupon Discount
                       </h5>
@@ -234,9 +301,15 @@ const Checkout = () => {
                         className="form-control mb-4"
                         placeholder="Enter coupon code here..."
                         required
+                        name="coupon"
                       />
+                      <div
+                        style={{ position: "relative", marginBottom: "10px" }}
+                      >
+                        <ProgressBar visible={cLoading} />
+                      </div>
                       <button
-                        disabled
+                        disabled={oLoading || cLoading}
                         className="btn btn-dark btn-outline btn-rounded"
                       >
                         Apply Coupon
@@ -366,11 +439,30 @@ const Checkout = () => {
                               {cartSummary.summary.tax}
                             </td>
                           </tr>
+
+                          {cartSummary.summary.coupon_applied ? (
+                            <tr className="bb-no">
+                              <td className="product-name text-primary">
+                                <b style={{ color: "green" }}>
+                                  COUPON: {cartSummary.summary.coupon_code}
+                                </b>
+                              </td>
+                              <td className="product-total">
+                                <a
+                                  style={{ color: "red", cursor: "pointer" }}
+                                  onClick={removeCoupon}
+                                >
+                                  [Remove]
+                                </a>
+                              </td>
+                            </tr>
+                          ) : null}
                           <tr className="bb-no">
                             <td className="product-name text-primary">
                               Discount
                             </td>
                             <td className="product-total">
+                              {"- "}
                               {cartSummary.summary.discount}
                             </td>
                           </tr>
@@ -406,7 +498,7 @@ const Checkout = () => {
                               ? "btn btn-dark btn-block btn-rounded disabled"
                               : "btn btn-dark btn-block btn-rounded"
                           }
-                          disabled={oLoading || loading}
+                          disabled={oLoading || loading || cLoading}
                         >
                           Place Order
                         </button>

@@ -1,10 +1,13 @@
+import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import ReactStars from "react-rating-stars-component";
+import { toast } from "react-toastify";
 import client from "../../pages/api/client";
 import AppContext from "../../storeData/AppContext";
 import ProgressBar from "../ProgressBar";
 
 export default function UserReviews({ reviews, product_id, getReviews }) {
+  const Router = useRouter();
   const {
     state: { user },
   } = useContext(AppContext);
@@ -45,6 +48,12 @@ export default function UserReviews({ reviews, product_id, getReviews }) {
         setLoading(false);
       }
       setLoading(false);
+    } else {
+      toast.warning("Please Login Frist!");
+      Router.push({
+        pathname: "/login",
+        query: { pathname: Router.asPath },
+      });
     }
   };
   return (

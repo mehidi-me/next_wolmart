@@ -15,7 +15,7 @@ const withAuth = (WrappedComponent) => {
         toast.warning("Please Login Frist!");
         Router.push({
           pathname: "/login",
-          query: { pathname: Router.pathname },
+          query: { pathname: Router.asPath },
         });
         return null;
       }
