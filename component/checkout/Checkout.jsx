@@ -18,6 +18,8 @@ const Checkout = () => {
     shippingCost: {},
     summary: {},
   });
+
+  const [pmethod, setPmethod] = useState("");
   const [loading, setLoading] = useState(false);
   const [oLoading, setoLoading] = useState(false);
   const [cLoading, setcLoading] = useState(false);
@@ -483,8 +485,74 @@ const Checkout = () => {
                         <div className="accordion payment-accordion">
                           <div className="card">
                             <div className="card-header">
-                              <a href="#cash-on-delivery" className="collapse">
+                              <a
+                                onClick={() => setPmethod("c")}
+                                className={
+                                  pmethod == "c" ? "collapse" : "expand"
+                                }
+                              >
                                 Cash on delivery
+                              </a>
+                            </div>
+                          </div>
+                          <div className="card">
+                            <div className="card-header">
+                              <a
+                                onClick={() => setPmethod("b")}
+                                className={
+                                  pmethod == "b" ? "collapse" : "expand"
+                                }
+                              >
+                                Pay With Bkash
+                              </a>
+                            </div>
+                            <div
+                              className={
+                                pmethod == "b"
+                                  ? "card-body expanded"
+                                  : "card-body collapse"
+                              }
+                              style={
+                                pmethod == "b"
+                                  ? { display: "block" }
+                                  : { display: "none" }
+                              }
+                            >
+                              <p className="mb-0">
+                                Please send a check to Store Name, Store Street,
+                                Store Town, Store State / County, Store
+                                Postcode.
+                              </p>
+                              <form className="mt-4 pl-5">
+                                <input
+                                  type="text"
+                                  className="form-control mb-4"
+                                  placeholder="Enter Bkash Number"
+                                  required
+                                  name="number-b"
+                                />
+                                <input
+                                  type="text"
+                                  className="form-control mb-4"
+                                  placeholder="Enter Transaction ID"
+                                  required
+                                  name="t-id"
+                                />
+                                <button className="btn btn-dark  btn-rounded">
+                                  Pay
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                          <div className="card">
+                            <div className="card-header">
+                              <a
+                                onClick={() => setPmethod("n")}
+                                className={
+                                  pmethod == "n" ? "collapse" : "expand"
+                                }
+                              >
+                                Pay With Nogod
                               </a>
                             </div>
                           </div>

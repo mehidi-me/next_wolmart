@@ -9,7 +9,7 @@ import QuickView from "../component/QuickView";
 import RecentView from "../component/RecentView";
 import TopCategory from "../component/TopCategory";
 import AppContext from "../storeData/AppContext";
-import client from "./api/client";
+import client, { imgPath } from "./api/client";
 
 export default function Home() {
   const {
@@ -39,6 +39,7 @@ export default function Home() {
             name={v.name}
             key={v.id}
             id={v.id}
+            img={imgPath + v.banner}
             subCategory={category.filter((data) => data.parent_id == v.id)}
           />
         ))}

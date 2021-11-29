@@ -4,7 +4,7 @@ import SkeletonCard from "./SkeletonCard";
 import client from "../pages/api/client";
 import Link from "next/link";
 
-export default function AllProducts({ name, id, subCategory }) {
+export default function AllProducts({ name, id, subCategory, img }) {
   const [activeCat, setActiveCat] = useState({});
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
@@ -64,11 +64,11 @@ export default function AllProducts({ name, id, subCategory }) {
           <div
             className="banner h-100 br-sm"
             style={{
-              backgroundImage: "url(assets/images/demos/demo1/banners/2.jpg)",
+              backgroundImage: `url(${img})`,
               backgroundColor: "#ebeced",
             }}
           >
-            <div className="banner-content content-top">
+            {/* <div className="banner-content content-top">
               <h5 className="banner-subtitle font-weight-normal mb-2">
                 Weekend Sale
               </h5>
@@ -86,7 +86,7 @@ export default function AllProducts({ name, id, subCategory }) {
               >
                 shop Now
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* End of Banner */}

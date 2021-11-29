@@ -8,6 +8,7 @@ export default function DropDownMenu({
   subCategory,
   childCategory,
   classD,
+  img,
 }) {
   // const [category, setCategory] = useState([]);
   const {
@@ -47,14 +48,9 @@ export default function DropDownMenu({
         <li>
           <div className="banner-fixed menu-banner menu-banner2">
             <figure>
-              <img
-                src="assets/images/menu/banner-2.jpg"
-                alt="Menu Banner"
-                width={235}
-                height={347}
-              />
+              <img src={img} alt="Menu Banner" width={235} height={347} />
             </figure>
-            <div className="banner-content">
+            {/* <div className="banner-content">
               <div className="banner-price-info mb-1 ls-normal">
                 Get up to
                 <strong className="text-primary text-uppercase">20%Off</strong>
@@ -67,7 +63,7 @@ export default function DropDownMenu({
                 Shop Now
                 <i className="w-icon-long-arrow-right" />
               </a>
-            </div>
+            </div> */}
           </div>
         </li>
       </ul>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useContext } from "react";
+import { imgPath } from "../../../pages/api/client";
 import AppContext from "../../../storeData/AppContext";
 import DropDownMenu from "./DropDownMenu";
 
@@ -36,6 +37,7 @@ export default function NavBar() {
                           key={v.id}
                           id={v.id}
                           name={v.name}
+                          img={imgPath + v.banner}
                           subCategory={category.filter(
                             (data) => data.parent_id == v.id
                           )}
