@@ -63,6 +63,70 @@ const logout = (state) => {
   return { ...state, user: null };
 };
 
+const setSiteData = (state, data) => {
+  let obj = {};
+
+  data.map((v) => {
+    switch (v.type) {
+      case "footer_logo":
+        obj = { ...obj, footer_logo: v.value };
+        break;
+      case "about_us_description":
+        obj = { ...obj, about_us_description: v.value };
+        break;
+      case "contact_address":
+        obj = { ...obj, contact_address: v.value };
+        break;
+      case "contact_email":
+        obj = { ...obj, contact_email: v.value };
+        break;
+      case "contact_phone":
+        obj = { ...obj, contact_phone: v.value };
+        break;
+      case "facebook_link":
+        obj = { ...obj, facebook_link: v.value };
+        break;
+      case "twitter_link":
+        obj = { ...obj, twitter_link: v.value };
+        break;
+      case "instagram_link":
+        obj = { ...obj, instagram_link: v.value };
+        break;
+      case "youtube_link":
+        obj = { ...obj, youtube_link: v.value };
+        break;
+      case "linkedin_link":
+        obj = { ...obj, linkedin_link: v.value };
+        break;
+      case "website_name":
+        obj = { ...obj, website_name: v.value };
+        break;
+      case "site_motto":
+        obj = { ...obj, site_motto: v.value };
+        break;
+      case "site_icon":
+        obj = { ...obj, site_icon: v.value };
+        break;
+      case "meta_title":
+        obj = { ...obj, meta_title: v.value };
+        break;
+      case "meta_description":
+        obj = { ...obj, meta_description: v.value };
+        break;
+      case "meta_keywords":
+        obj = { ...obj, meta_keywords: v.value };
+        break;
+      case "meta_image":
+        obj = { ...obj, meta_image: v.value };
+        break;
+
+      default:
+        break;
+    }
+  });
+  return { ...state, siteData: obj };
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "GET_ALL_CATEGORY":
@@ -122,9 +186,13 @@ const reducer = (state, action) => {
 
     case "LOG_OUT":
       return logout(state);
+
+    case "SET_SITE_DATA":
+      return setSiteData(state, action.payload);
+      break;
+
     default:
       return state;
-      break;
   }
 };
 

@@ -6,6 +6,7 @@ const initialState = {
   whishlist: [],
   user: null,
   generalSettings: {},
+  siteData: {},
 };
 
 export default initialState;

@@ -1,11 +1,29 @@
 import { useRouter } from "next/dist/client/router";
+import Head from "next/head";
 import React from "react";
 import ProductDetails from "../../component/productDetails/ProductDetails";
-import client from "../api/client";
+import client, { imgPath } from "../api/client";
 
 export default function product({ product, productImage, slug }) {
   return (
-    <ProductDetails product={product} productImage={productImage} slug={slug} />
+    <>
+      <Head>
+        <title>{product.name}</title>
+        <meta property="og:image" content={imgPath + product.meta_img} />
+        <meta
+          name="og:title"
+          property="og:title"
+          content={product.meta_title}
+        />
+
+        <meta name="description" content={product.meta_description} />
+      </Head>
+      <ProductDetails
+        productServer={product}
+        pImage={productImage}
+        slug={slug}
+      />
+    </>
   );
 }
 

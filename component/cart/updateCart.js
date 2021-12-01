@@ -62,12 +62,12 @@ const remove = async (id, dispatch) => {
   }
 };
 
-const add = async (id, quantity, dispatch) => {
+const add = async (id, quantity, dispatch, variant) => {
   const body = {
     user_id: localStorage.getItem("uid"),
     id,
     quantity,
-    variant: "",
+    variant,
   };
   try {
     const res = await fetch(client + "carts/add", {

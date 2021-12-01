@@ -47,8 +47,8 @@ export default function TopCategory() {
             .filter((v) => v.parent_id == 0)
             .map((v) => (
               <SwiperSlide key={v.id}>
-                <div className="swiper-slide category category-classic category-absolute overlay-zoom br-xs">
-                  <Link href={"/products?categories=" + v.id}>
+                <Link href={"/products?categories=" + v.id}>
+                  <div className="swiper-slide category category-classic category-absolute overlay-zoom br-xs">
                     <a className="category-media">
                       <img
                         src={imgPath + v.banner}
@@ -57,16 +57,16 @@ export default function TopCategory() {
                         height={130}
                       />
                     </a>
-                  </Link>
-                  <div className="category-content">
-                    <h4 className="category-name">{v.name}</h4>
-                    <Link href={"/products?categories=" + v.id}>
-                      <a className="btn btn-primary btn-link btn-underline">
-                        Shop Now
-                      </a>
-                    </Link>
+                    <div className="category-content">
+                      <h4 className="category-name">{v.name}</h4>
+                      <Link href={"/products?categories=" + v.id}>
+                        <a className="btn btn-primary btn-link btn-underline">
+                          Shop Now
+                        </a>
+                      </Link>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
             ))}
         </Swiper>

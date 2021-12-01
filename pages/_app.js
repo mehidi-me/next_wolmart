@@ -24,6 +24,7 @@ function MyApp({
   subCategory,
   childCategory,
   generalSettings,
+  siteData,
 }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -36,6 +37,9 @@ function MyApp({
     }
     if (generalSettings) {
       dispatch({ type: "SET_SETTING", payload: generalSettings });
+    }
+    if (siteData) {
+      dispatch({ type: "SET_SITE_DATA", payload: siteData });
     }
     const cartData = JSON.parse(localStorage.getItem("cartdata"));
     const whishlist = JSON.parse(localStorage.getItem("whishlist"));
@@ -118,6 +122,7 @@ MyApp.getInitialProps = async (appContext1) => {
   } else {
     try {
       let category = await fetcher(client + "categories/all");
+      let siteSetting = await fetcher(client + "business-settings");
       //let generalSettings = await fetcher(client + "general-settings");
       let subCategory = [];
       let childCategory = [];
@@ -129,6 +134,7 @@ MyApp.getInitialProps = async (appContext1) => {
         category: category.data,
         subCategory,
         childCategory,
+        siteData: siteSetting.data,
         //generalSettings: generalSettings.data[0],
       };
     } catch (error) {

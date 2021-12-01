@@ -1,4 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { useContext } from "react";
+import AppContext from "../storeData/AppContext";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {

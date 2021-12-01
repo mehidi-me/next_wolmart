@@ -9,7 +9,7 @@ import ProgressBar from "../../ProgressBar";
 export default function MenuBar() {
   const {
     dispatch,
-    state: { cartData, category, generalSettings },
+    state: { cartData, category, siteData },
   } = useContext(AppContext);
 
   const [loading, setLoading] = useState(false);
@@ -50,6 +50,18 @@ export default function MenuBar() {
       route.push(`/products?search=${searchText}`);
     }
   };
+
+  // about_us_description: null
+  // contact_address: "Mirpur Dhaka"
+  // contact_email: "support@shahtechnology.com"
+  // footer_logo: "116"
+  // meta_description: null
+  // meta_image: "116"
+  // meta_keywords: null
+  // meta_title: "123"
+  // site_icon: "116"
+  // site_motto: "Shopsbd Mart"
+  // website_name: "Shopsbd Mart1"
   return (
     <div className="header-middle">
       <div className="container">
@@ -98,14 +110,17 @@ export default function MenuBar() {
           <div className="header-call d-xs-show d-lg-flex align-items-center">
             <a href="tel:#" className="w-icon-call" />
             <div className="call-info d-lg-show">
-              <h4 className="chat font-weight-normal font-size-md text-normal ls-normal text-light mb-0">
+              {/* <h4 className="chat font-weight-normal font-size-md text-normal ls-normal text-light mb-0">
                 <a href="mailto:#" className="text-capitalize">
                   Live Chat
                 </a>{" "}
                 or :
-              </h4>
-              <a href="tel:#" className="phone-number font-weight-bolder ls-50">
-                0(800)123-456
+              </h4> */}
+              <a
+                href={"tel:" + siteData.contact_phone}
+                className="phone-number font-weight-bolder ls-50"
+              >
+                {siteData.contact_phone}
               </a>
             </div>
           </div>

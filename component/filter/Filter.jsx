@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import AppContext from "../../storeData/AppContext";
 import ProductCard from "../ProductCard";
 import SkeletonCard from "../SkeletonCard";
+import SubCategory from "./SubCategory";
 
 export default function Filter({ products, loading, getmore, ismoredata }) {
   const {
@@ -65,7 +66,14 @@ export default function Filter({ products, loading, getmore, ismoredata }) {
             <aside className="sidebar shop-sidebar sticky-sidebar-wrapper sidebar-fixed">
               {/* Start of Sidebar Overlay */}
               <div className="sidebar-overlay" />
-              <a className="sidebar-close" href="#">
+              <a
+                className="sidebar-close"
+                onClick={() =>
+                  document
+                    .querySelector("body")
+                    .classList.remove("sidebar-active")
+                }
+              >
                 <i className="close-icon" />
               </a>
               {/* Start of Sidebar Content */}
@@ -76,7 +84,6 @@ export default function Filter({ products, loading, getmore, ismoredata }) {
                     className="sticky-sidebar"
                     style={{
                       "border-bottom": "0px none rgb(102, 102, 102)",
-                      width: "280px",
                     }}
                   >
                     <div className="filter-actions">
@@ -97,11 +104,14 @@ export default function Filter({ products, loading, getmore, ismoredata }) {
                         {category
                           .filter((v) => v.parent_id == 0)
                           .map((v) => (
-                            <li key={v.id}>
-                              <Link href={`/products?categories=${v.id}`}>
-                                <a>{v.name}</a>
-                              </Link>
-                            </li>
+                            <SubCategory
+                              name={v.name}
+                              key={v.id}
+                              id={v.id}
+                              subCategory={category.filter(
+                                (data) => data.parent_id == v.id
+                              )}
+                            />
                           ))}
                       </ul>
                     </div>
@@ -247,7 +257,11 @@ export default function Filter({ products, loading, getmore, ismoredata }) {
               <nav className="toolbox sticky-toolbox sticky-content fix-top">
                 <div className="toolbox-left">
                   <a
-                    href="#"
+                    onClick={() =>
+                      document
+                        .querySelector("body")
+                        .classList.add("sidebar-active")
+                    }
                     className="btn btn-primary btn-outline btn-rounded left-sidebar-toggle 
                                   btn-icon-left d-block d-lg-none"
                   >

@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import AppContext from "../../../storeData/AppContext";
 
 export default function Footer() {
+  const {
+    state: { siteData },
+  } = useContext(AppContext);
+
   return (
     <footer
       className="footer appear-animate"
@@ -60,32 +65,34 @@ export default function Footer() {
                   <p className="widget-about-title">
                     Got Question? Call us 24/7
                   </p>
-                  <a href="tel:18005707777" className="widget-about-call">
-                    1-800-570-7777
+                  <a
+                    href={"tel:" + siteData.contact_phone}
+                    className="widget-about-call"
+                  >
+                    {siteData.contact_phone}
                   </a>
                   <p className="widget-about-desc">
-                    Register now to get updates on pronot get up icons &amp;
-                    coupons ster now toon.
+                    {siteData.about_us_description}
                   </p>
                   <div className="social-icons social-icons-colored">
                     <a
-                      href="#"
+                      href={siteData.facebook_link}
                       className="social-icon social-facebook w-icon-facebook"
                     />
                     <a
-                      href="#"
+                      href={siteData.twitter_link}
                       className="social-icon social-twitter w-icon-twitter"
                     />
                     <a
-                      href="#"
+                      href={siteData.instagram_link}
                       className="social-icon social-instagram w-icon-instagram"
                     />
                     <a
-                      href="#"
+                      href={siteData.youtube_link}
                       className="social-icon social-youtube w-icon-youtube"
                     />
                     <a
-                      href="#"
+                      href={siteData.linkedin_link}
                       className="social-icon social-pinterest w-icon-pinterest"
                     />
                   </div>
@@ -257,7 +264,7 @@ export default function Footer() {
             </span>
             <figure className="payment">
               <img
-                src="assets/images/payment.png"
+                src="/assets/images/payment.png"
                 alt="payment"
                 width={159}
                 height={25}

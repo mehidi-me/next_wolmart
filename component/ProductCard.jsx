@@ -62,7 +62,7 @@ export default function ProductCard({
       <div className="product-wrap product text-center">
         <figure className="product-media">
           <div className="product-image-s">
-            <Link href={"/product/" + slug}>
+            <a target="_blank" href={"/product/" + slug}>
               <Image
                 src={imgPath + thumbnail_image}
                 blurDataURL={imgPath + thumbnail_image}
@@ -72,7 +72,7 @@ export default function ProductCard({
                 placeholder="blur"
                 s
               />
-            </Link>
+            </a>
           </div>
           {whishlist.find((v) => v.id == id) ? (
             <div
@@ -119,14 +119,20 @@ export default function ProductCard({
         </figure>
         <div className="product-details">
           <h4 className="product-name">
-            <a href="product-default.html">{name}</a>
+            <a target="_blank" href={"/product/" + slug}>
+              {name}
+            </a>
           </h4>
           <div className="ratings-container">
             <div className="ratings-full">
               <span className="ratings" style={{ width: `${rating * 10}%` }} />
               <span className="tooltiptext tooltip-top" />
             </div>
-            <a href="product-default.html" className="rating-reviews">
+            <a
+              target="_blank"
+              href={"/product/" + slug}
+              className="rating-reviews"
+            >
               ({rating_count} reviews)
             </a>
           </div>
