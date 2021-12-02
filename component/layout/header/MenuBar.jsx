@@ -74,7 +74,7 @@ export default function MenuBar() {
 
           <Link href="/">
             <a className="logo ml-lg-0">
-              <img src="/assets/images/logo.jpeg" alt="logo" width={45} />
+              <img src={imgPath + siteData.logo} alt="logo" width={245} />
             </a>
           </Link>
           <form

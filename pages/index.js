@@ -13,7 +13,7 @@ import client, { imgPath } from "./api/client";
 
 export default function Home() {
   const {
-    state: { subCategory, category },
+    state: { subCategory, category, siteData },
   } = useContext(AppContext);
   const [homeCategory, setHomeCategory] = useState([]);
 
@@ -26,7 +26,46 @@ export default function Home() {
     getHomeCat();
   }, []);
   return (
+    // {
+    //   type: "site_icon",
+    //   value: "116"
+    //   },
+    //   {
+    //   type: "base_color",
+    //   value: "#e62e04"
+    //   },
+    //   {
+    //   type: "base_hov_color",
+    //   value: "#e62e04"
+    //   },
+    //   {
+    //   type: "meta_title",
+    //   value: "123"
+    //   },
+    //   {
+    //   type: "meta_description",
+    //   value: null
+    //   },
+    //   {
+    //   type: "meta_keywords",
+    //   value: null
+    //   },
+    //   {
+    //   type: "meta_image",
+    //   value: "uploads/all/oQpudHLwoepcmmWb690rc4h9OsKQXkOiuySq3ScD.jpg"
+    //   },
     <>
+      <Head>
+        <meta name="keywords" content={siteData.meta_keywords} />
+        <meta name="description" content={siteData.meta_description} />
+        <meta name="author" content="MEHIDI" />
+        <meta property="og:image" content={imgPath + siteData.meta_image} />
+        <meta property="og:title" content={siteData.meta_title} />
+        {/* Favicon */}
+        <link rel="icon" type="image/png" href={imgPath + siteData.site_icon} />
+        {/* WebFont.js */}
+        <title>{siteData.website_name}</title>
+      </Head>
       <Banner />
       <div className="container">
         <IconBox />

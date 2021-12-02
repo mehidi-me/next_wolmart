@@ -14,6 +14,7 @@ import "reactjs-popup/dist/index.css";
 import { v1 as uuidv1 } from "uuid";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Head } from "next/document";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 

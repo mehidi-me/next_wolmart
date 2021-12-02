@@ -17,12 +17,54 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from "react-share";
+import Skeleton from "react-loading-skeleton";
+import client from "../pages/api/client";
+import Link from "next/link";
 
 export default function QuickView({ close, product, productImage, slug }) {
   const {
     state: { cartData, whishlist },
     dispatch,
   } = useContext(AppContext);
+
+  const [variant, setVariant] = useState([]);
+  const [variantLoading, setVariantLoading] = useState(false);
+  const [variantPrice, setVariantPrice] = useState({ variant: "", price: "" });
+
+  const getVariant = async (data) => {
+    if (!variantLoading) {
+      const newVariant = variant.filter((v) => v.type != data.type);
+      const newData = [...newVariant, data];
+      setVariant(newData);
+      var tLength = product.colors.length
+        ? product.choice_options.length + 1
+        : product.choice_options.length;
+      if (newData.length == tLength) {
+        let vstr = [];
+        product.choice_options.map((data) => {
+          vstr.push(newData.find((v) => v.type == data.title).value);
+        });
+        const color = newData.find((v) => v.type == "Color").value.substring(1);
+        setVariantLoading(true);
+        try {
+          const link = `${client}products/variant/price?id=${
+            product.id
+          }&color=${color}&variants=${vstr.join()}`;
+          const res = await fetch(link);
+          const data = await res.json();
+          if (data) {
+            setVariantPrice({
+              variant: data.variant,
+              price: data.price_string,
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        }
+        setVariantLoading(false);
+      }
+    }
+  };
 
   const [qty, setQty] = useState(1);
 
@@ -33,7 +75,7 @@ export default function QuickView({ close, product, productImage, slug }) {
   const addToCard = async (data, image) => {
     try {
       setLoading(true);
-      await add(data.id, qty, dispatch);
+      await add(data.id, qty, dispatch, variantPrice.variant);
     } catch (error) {
       console.log(error);
     }
@@ -92,28 +134,54 @@ export default function QuickView({ close, product, productImage, slug }) {
             <div className="product-details scrollable pl-0">
               <h2 className="product-title">{product.name}</h2>
               <div className="product-bm-wrapper">
-                <figure className="brand">
-                  <img
-                    src="https://portotheme.com/html/wolmart/assets/images/products/brand/brand-1.jpg"
-                    alt="Brand"
-                    width={102}
-                    height={48}
-                  />
-                </figure>
+                {/* <figure className="brand">
+                        <img
+                          src="https://portotheme.com/html/wolmart/assets/images/products/brand/brand-1.jpg"
+                          alt="Brand"
+                          width={102}
+                          height={48}
+                        />
+                      </figure> */}
                 <div className="product-meta">
                   <div className="product-categories">
                     Category:
                     <span className="product-category">
-                      <a href="#">Electronics</a>
+                      {product.category ? (
+                        <Link
+                          href={
+                            "/products?categories=" + product.category[0].id
+                          }
+                        >
+                          <a>
+                            {" "}
+                            {"  "}
+                            {product.category[0].name}
+                          </a>
+                        </Link>
+                      ) : null}
                     </span>
                   </div>
-                  <div className="product-sku">
-                    SKU: <span>MS46891340</span>
-                  </div>
+                  {/* <div className="product-sku">
+                          SKU: <span>MS46891340</span>
+                        </div> */}
                 </div>
               </div>
               <hr className="product-divider" />
-              <div className="product-price">{product.main_price}</div>
+              {variantLoading ? (
+                <div className="product-price">
+                  <ins className="new-price">
+                    <Skeleton width={180} height={30} />
+                  </ins>
+                </div>
+              ) : (
+                <div className="product-price">
+                  <ins className="new-price">
+                    {variantPrice.price
+                      ? variantPrice.price
+                      : product.main_price}
+                  </ins>
+                </div>
+              )}
               <div className="ratings-container">
                 <div className="ratings-full">
                   <span
@@ -132,59 +200,88 @@ export default function QuickView({ close, product, productImage, slug }) {
                 </ul>
               </div> */}
               <hr className="product-divider" />
-              <div className="product-form product-variation-form product-color-swatch">
-                <label>Color:</label>
-                <div className="d-flex align-items-center product-variations">
-                  <a
-                    href="#"
-                    className="color"
-                    style={{ backgroundColor: "#ffcc01" }}
-                  />
-                  <a
-                    href="#"
-                    className="color"
-                    style={{ backgroundColor: "#ca6d00" }}
-                  />
-                  <a
-                    href="#"
-                    className="color"
-                    style={{ backgroundColor: "#1c93cb" }}
-                  />
-                  <a
-                    href="#"
-                    className="color"
-                    style={{ backgroundColor: "#ccc" }}
-                  />
-                  <a
-                    href="#"
-                    className="color"
-                    style={{ backgroundColor: "#333" }}
-                  />
-                </div>
-              </div>
-              <div className="product-form product-variation-form product-size-swatch">
-                <label className="mb-1">Size:</label>
-                <div className="flex-wrap d-flex align-items-center product-variations">
-                  <a href="#" className="size">
-                    Small
-                  </a>
-                  <a href="#" className="size">
-                    Medium
-                  </a>
-                  <a href="#" className="size">
-                    Large
-                  </a>
-                  <a href="#" className="size">
-                    Extra Large
-                  </a>
-                </div>
-                <a href="#" className="product-variation-clean">
-                  Clean All
-                </a>
-              </div>
-              <div className="product-variation-price">
-                <span />
-              </div>
+
+              {product.colors ? (
+                product.colors.length ? (
+                  <div className="product-form product-variation-form product-color-swatch">
+                    <label>Color:</label>
+                    <div className="d-flex align-items-center product-variations">
+                      {product.colors.map((v) => (
+                        <a
+                          onClick={() =>
+                            getVariant({ type: "Color", value: v })
+                          }
+                          className={
+                            variant.find(
+                              (data) => data.type == "Color" && data.value == v
+                            )
+                              ? "color active"
+                              : "color"
+                          }
+                          style={{ backgroundColor: v }}
+                        />
+                      ))}
+                      {!variant.length ||
+                      variant.find((data) => data.type == "Color") ? null : (
+                        <span
+                          style={{
+                            marginLeft: "10px",
+                            fontSize: "14px",
+                            color: "red",
+                          }}
+                        >
+                          Select Color !
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ) : null
+              ) : null}
+
+              {product.choice_options
+                ? product.choice_options.length
+                  ? product.choice_options.map((v) => (
+                      <div className="product-form product-variation-form product-size-swatch">
+                        <label className="mb-1">{v.title}:</label>
+                        <div className="flex-wrap d-flex align-items-center product-variations">
+                          {v.options.map((v2) => (
+                            <a
+                              onClick={() =>
+                                getVariant({ type: v.title, value: v2 })
+                              }
+                              className={
+                                variant.find(
+                                  (data) =>
+                                    data.type == v.title && data.value == v2
+                                )
+                                  ? "size active"
+                                  : "size"
+                              }
+                            >
+                              {v2}
+                            </a>
+                          ))}
+
+                          {!variant.length ||
+                          variant.find(
+                            (data) => data.type == v.title
+                          ) ? null : (
+                            <span
+                              style={{
+                                marginLeft: "10px",
+                                fontSize: "14px",
+                                color: "red",
+                              }}
+                            >
+                              Select{" " + v.title + " !"}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  : null
+                : null}
+
               <ProgressBar visible={loading} />
               <div className="product-form container">
                 <div className="product-qty-form">

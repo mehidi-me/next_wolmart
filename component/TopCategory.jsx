@@ -12,6 +12,7 @@ import "swiper/css/autoplay";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import AppContext from "../storeData/AppContext";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 SwiperCore.use([Autoplay]);
 
@@ -19,6 +20,7 @@ export default function TopCategory() {
   const {
     state: { category },
   } = useContext(AppContext);
+  const route = useRouter();
   return (
     <section className="category-section top-category bg-grey pt-10 pb-10">
       <div className="container pb-2">
@@ -47,7 +49,7 @@ export default function TopCategory() {
             .filter((v) => v.parent_id == 0)
             .map((v) => (
               <SwiperSlide key={v.id}>
-                <Link href={"/products?categories=" + v.id}>
+                <a onClick={() => route.push("/products?categories=" + v.id)}>
                   <div className="swiper-slide category category-classic category-absolute overlay-zoom br-xs">
                     <a className="category-media">
                       <img
@@ -66,7 +68,7 @@ export default function TopCategory() {
                       </Link>
                     </div>
                   </div>
-                </Link>
+                </a>
               </SwiperSlide>
             ))}
         </Swiper>

@@ -119,6 +119,9 @@ const setSiteData = (state, data) => {
       case "meta_image":
         obj = { ...obj, meta_image: v.value };
         break;
+      case "system_logo_white":
+        obj = { ...obj, logo: v.value };
+        break;
 
       default:
         break;

@@ -6,6 +6,7 @@ import AppContext from "../storeData/AppContext";
 import QuickView from "./QuickView";
 import QuickViewSkeleton from "./QuickViewSkeleton";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function ProductCard({
   product: {
@@ -57,12 +58,18 @@ export default function ProductCard({
     dispatch({ type: "ADD_TO_WHISHLIST", payload });
   };
 
+  const route = useRouter();
+
+  const getProductDetailsPage = () => {
+    route.push("/product/" + slug);
+  };
+
   return (
     <>
       <div className="product-wrap product text-center">
         <figure className="product-media">
           <div className="product-image-s">
-            <a target="_blank" href={"/product/" + slug}>
+            <a onClick={getProductDetailsPage}>
               <Image
                 src={imgPath + thumbnail_image}
                 blurDataURL={imgPath + thumbnail_image}
@@ -70,7 +77,6 @@ export default function ProductCard({
                 width={216}
                 height={243}
                 placeholder="blur"
-                s
               />
             </a>
           </div>
@@ -119,20 +125,14 @@ export default function ProductCard({
         </figure>
         <div className="product-details">
           <h4 className="product-name">
-            <a target="_blank" href={"/product/" + slug}>
-              {name}
-            </a>
+            <a onClick={getProductDetailsPage}>{name}</a>
           </h4>
           <div className="ratings-container">
             <div className="ratings-full">
               <span className="ratings" style={{ width: `${rating * 10}%` }} />
               <span className="tooltiptext tooltip-top" />
             </div>
-            <a
-              target="_blank"
-              href={"/product/" + slug}
-              className="rating-reviews"
-            >
+            <a onClick={getProductDetailsPage} className="rating-reviews">
               ({rating_count} reviews)
             </a>
           </div>

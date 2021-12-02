@@ -7,12 +7,7 @@ export default function Footer() {
   } = useContext(AppContext);
 
   return (
-    <footer
-      className="footer appear-animate"
-      data-animation-options="{
-            'name': 'fadeIn'
-        }"
-    >
+    <footer className="footer">
       <div className="footer-newsletter bg-primary">
         <div className="container">
           <div className="row justify-content-center align-items-center">
@@ -33,7 +28,7 @@ export default function Footer() {
             </div>
             <div className="col-xl-7 col-lg-6 col-md-9 mt-4 mt-lg-0 ">
               <form
-                action="#"
+                // action="#"
                 method="get"
                 className="input-wrapper input-wrapper-inline input-wrapper-rounded"
               >

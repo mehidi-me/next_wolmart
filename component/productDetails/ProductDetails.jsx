@@ -28,14 +28,14 @@ const origin =
     ? window.location.origin
     : "";
 
-export default function ProductDetails({ productServer, pImage, slug }) {
+export default function ProductDetails({ product, productImage, slug }) {
   const {
     dispatch,
     state: { category, cartData, whishlist },
   } = useContext(AppContext);
 
-  const [product, setProduct] = useState({});
-  const [productImage, setproductImage] = useState([]);
+  // const [product, setProduct] = useState({});
+  // const [productImage, setproductImage] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [moreProduct, setMoreProduct] = useState([]);
   const [variant, setVariant] = useState([]);
@@ -157,29 +157,29 @@ export default function ProductDetails({ productServer, pImage, slug }) {
     }
   };
 
-  const getProduct = async () => {
-    const res = await fetch(client + "products/" + slug);
-    const data = await res.json();
+  // const getProduct = async () => {
+  //   const res = await fetch(client + "products/" + slug);
+  //   const data = await res.json();
 
-    if (data.success) {
-      const data2 = data.data[0];
-      const productImage = [...data2.photos, data2.thumbnail_image];
+  //   if (data.success) {
+  //     const data2 = data.data[0];
+  //     const productImage = [...data2.photos, data2.thumbnail_image];
 
-      setProduct(data2);
-      setproductImage(productImage);
-    }
-  };
+  //     setProduct(data2);
+  //     setproductImage(productImage);
+  //   }
+  // };
   useEffect(() => {
-    (async () => {
-      if (!productServer) {
-        // await getProduct();
-        setProduct(productServer);
-        setproductImage(pImage);
-      } else {
-        setProduct(productServer);
-        setproductImage(pImage);
-      }
-    })();
+    // (async () => {
+    //   if (!productServer) {
+    //     // await getProduct();
+    //     setProduct(productServer);
+    //     setproductImage(pImage);
+    //   } else {
+    //     setProduct(productServer);
+    //     setproductImage(pImage);
+    //   }
+    // })();
     getMoreProduct();
     getReviews(product.id);
   }, []);

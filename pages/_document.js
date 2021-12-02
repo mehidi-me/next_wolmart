@@ -15,14 +15,6 @@ class MyDocument extends Document {
           <meta charSet="UTF-8" />
           {/* <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" /> */}
 
-          <meta name="keywords" content="Shopsbd Mart" />
-          <meta name="description" content="Shopsbd Mart" />
-          <meta name="author" content="MEHIDI" />
-          <meta property="og:image" content="/assets/images/logo.jpeg" />
-          {/* Favicon */}
-          <link rel="icon" type="image/png" href="/assets/images/logo.jpeg" />
-          {/* WebFont.js */}
-
           <link
             rel="preload"
             href="/assets/vendor/fontawesome-free/webfonts/fa-regular-400.woff2"

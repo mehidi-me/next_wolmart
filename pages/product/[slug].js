@@ -19,8 +19,8 @@ export default function product({ product, productImage, slug }) {
         <meta name="description" content={product.meta_description} />
       </Head>
       <ProductDetails
-        productServer={product}
-        pImage={productImage}
+        product={product}
+        productImage={productImage}
         slug={slug}
       />
     </>
