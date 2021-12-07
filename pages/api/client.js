@@ -1,5 +1,5 @@
-export default "https://shopsbdmart.com/demo/api/v2/";
+export default "http://206.189.141.186/api/v2/";
 
-const imgPath = "https://shopsbdmart.com/demo/public/";
+const imgPath = "http://206.189.141.186/public/";
 
 export { imgPath };
