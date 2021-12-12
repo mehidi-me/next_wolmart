@@ -1,6 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { useContext } from "react";
-import AppContext from "../storeData/AppContext";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -13,7 +11,6 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta charSet="UTF-8" />
-          {/* <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" /> */}
 
           <link
             rel="preload"
@@ -49,19 +46,12 @@ class MyDocument extends Document {
             type="text/css"
             href="/assets/vendor/fontawesome-free/css/all.min.css"
           />
-          {/* Plugins CSS */}
-          {/* <link rel="stylesheet" href="assets/vendor/swiper/swiper-bundle.min.css"> */}
           <link
             rel="stylesheet"
             type="text/css"
             href="/assets/vendor/animate/animate.min.css"
           />
-          {/* <link
-            rel="stylesheet"
-            type="text/css"
-            href="assets/vendor/magnific-popup/magnific-popup.min.css"
-          /> */}
-          {/* Link Swiper's CSS */}
+
           <link
             rel="stylesheet"
             href="/assets/vendor/swiper/swiper-bundle.min.css"
