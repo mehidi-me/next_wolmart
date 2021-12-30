@@ -24,7 +24,7 @@ export default function Banner() {
           setSliders(data.data);
         }
       });
-  });
+  }, []);
   return (
     <section className="intro-section banner">
       <Swiper
