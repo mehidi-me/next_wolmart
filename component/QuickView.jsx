@@ -175,11 +175,22 @@ export default function QuickView({ close, product, productImage, slug }) {
                 </div>
               ) : (
                 <div className="product-price">
-                  <ins className="new-price">
-                    {variantPrice.price
-                      ? variantPrice.price
-                      : product.main_price}
-                  </ins>
+                  {product.has_discount ? (
+                    <>
+                      <del className="old-price">{product.stroked_price}</del>
+                      <ins className="new-price">
+                        {variantPrice.price
+                          ? variantPrice.price
+                          : product.main_price}
+                      </ins>
+                    </>
+                  ) : (
+                    <ins className="new-price">
+                      {variantPrice.price
+                        ? variantPrice.price
+                        : product.main_price}
+                    </ins>
+                  )}
                 </div>
               )}
               <div className="ratings-container">

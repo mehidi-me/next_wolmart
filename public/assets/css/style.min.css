@@ -10396,7 +10396,7 @@ body .product-popup {
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
   align-items: baseline;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: -0.05em;
   line-height: 1.6;
@@ -10411,7 +10411,7 @@ body .product-popup {
   color: #333;
   text-decoration: none;
 }
-.product-price .new-price:not(:last-child) {
+.product-price .old-price:not(:last-child) {
   margin-right: 1rem;
 }
 .product-price:not(:last-child) {

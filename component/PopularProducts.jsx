@@ -20,6 +20,7 @@ export default function PopularProducts() {
       const res = await fetch(`${client}products/category/${id}`);
       const data = await res.json();
       setProducts(data.data);
+      console.log("p", data.data);
     } catch (error) {
       console.log(error);
     }
@@ -43,6 +44,7 @@ export default function PopularProducts() {
       >
         Popular Products
       </h2>
+
       <div
         className="tab tab-nav-boxed tab-nav-outline appear-animate fadeIn appear-animation-visible"
         style={{ animationDuration: "1.2s" }}

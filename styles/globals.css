@@ -179,6 +179,62 @@ a {
   animation: decrease 2s 0.5s infinite;
 }
 
+.special-offers-wrapper label {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  margin-bottom: 1.3rem;
+}
+.special-offers-wrapper .product-countdown {
+  margin-bottom: 5.2rem;
+}
+.special-offers-wrapper .countdown-section {
+  display: inline-block;
+  position: relative;
+  padding: 0.9rem 1rem 0.8rem 1rem;
+  min-width: 5.4rem;
+  background-color: #f5f5f5;
+  border-radius: 0.2rem;
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+.special-offers-wrapper .countdown-section .countdown-amount {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: -0.9px;
+  white-space: nowrap;
+  color: #333;
+  background-color: transparent;
+}
+.special-offers-wrapper .countdown-section:not(:last-child) {
+  margin-right: 1.2rem;
+}
+.special-offers-wrapper .countdown-section:not(:last-child)::after {
+  content: ":";
+  position: absolute;
+  left: 107%;
+  color: #333;
+  font-size: 2rem;
+  line-height: 1;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.special-offers-wrapper .countdown-period {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -2.5rem;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #333;
+  text-align: center;
+}
+
 @keyframes increase {
   from {
     left: -5%;

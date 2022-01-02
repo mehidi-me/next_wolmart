@@ -11,7 +11,9 @@ import { useRouter } from "next/router";
 export default function ProductCard({
   product: {
     name,
-    base_price,
+    has_discount,
+    stroked_price,
+    main_price,
     thumbnail_image,
     slug,
     rating,
@@ -137,7 +139,14 @@ export default function ProductCard({
             </a>
           </div>
           <div className="product-price">
-            <span className="price">{base_price}</span>
+            {has_discount ? (
+              <>
+                <del className="old-price">{stroked_price}</del>
+                <ins className="new-price">{main_price}</ins>
+              </>
+            ) : (
+              <ins className="new-price">{main_price}</ins>
+            )}
           </div>
         </div>
       </div>

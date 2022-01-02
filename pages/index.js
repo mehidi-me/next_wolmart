@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import AllProducts from "../component/AllProducts";
 import Banner from "../component/Banner";
+import FlashDeals from "../component/FlashDeals";
 import IconBox from "../component/IconBox";
 import PopularProducts from "../component/PopularProducts";
 import QuickView from "../component/QuickView";
@@ -22,8 +23,17 @@ export default function Home() {
     const data = await res.json();
     setHomeCategory(data.data);
   };
+  const [flashDeal, setFlashDeal] = useState([]);
+
+  const getFlashDeal = async () => {
+    const res = await fetch(client + "flash-deals");
+    const data = await res.json();
+    setFlashDeal(data.data);
+    console.log(data.data);
+  };
   useEffect(() => {
     getHomeCat();
+    getFlashDeal();
   }, []);
   return (
     // {
@@ -72,6 +82,7 @@ export default function Home() {
       </div>
       <TopCategory />
       <PopularProducts />
+      <FlashDeals flashDeal={flashDeal} />;
       <div className="container" style={{ paddingTop: "20px" }}>
         {homeCategory.map((v) => (
           <AllProducts
