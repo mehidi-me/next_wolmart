@@ -44,6 +44,7 @@ function MyApp({
     const cartData = JSON.parse(localStorage.getItem("cartdata"));
     const whishlist = JSON.parse(localStorage.getItem("whishlist"));
     const user = JSON.parse(localStorage.getItem("user"));
+    const recentView = JSON.parse(localStorage.getItem("recentview"));
     const uid = localStorage.getItem("uid");
     if (!uid) {
       localStorage.setItem("uid", uuidv1());
@@ -56,6 +57,11 @@ function MyApp({
     if (whishlist) {
       if (whishlist.length) {
         dispatch({ type: "SET_WHISHLIST_DATA", payload: whishlist });
+      }
+    }
+    if (recentView) {
+      if (recentView.length) {
+        dispatch({ type: "ADD_TO_RECENTVIEW_DATA", payload: recentView });
       }
     }
     if (user) {

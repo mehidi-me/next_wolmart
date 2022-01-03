@@ -170,6 +170,12 @@ export default function ProductDetails({ product, productImage, slug }) {
   //   }
   // };
   useEffect(() => {
+    const recentView = JSON.parse(localStorage.getItem("recentview"));
+    if (recentView) {
+      if (recentView.length) {
+        dispatch({ type: "ADD_TO_RECENTVIEW_DATA", payload: recentView });
+      }
+    }
     // (async () => {
     //   if (!productServer) {
     //     // await getProduct();
@@ -183,6 +189,19 @@ export default function ProductDetails({ product, productImage, slug }) {
     getMoreProduct();
     getReviews(product.id);
   }, []);
+
+  useEffect(() => {
+    if (product) {
+      dispatch({
+        type: "ADD_TO_RECENTVIEW",
+        payload: {
+          slug: product.slug,
+          name: product.name,
+          image: product.thumbnail_image,
+        },
+      });
+    }
+  }, [product]);
 
   return (
     <div className="mb-10 pb-1">

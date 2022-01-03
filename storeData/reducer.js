@@ -4,6 +4,21 @@ const addToWishlist = (state, payload) => {
   return { ...state, whishlist: newData };
 };
 
+const addToRecentView = (state, payload) => {
+  const newState =
+    state.recentView.length > 9
+      ? state.recentView.slice(0, 9)
+      : state.recentView;
+
+  const newData = [payload, ...newState];
+  const filterValue = newData.filter(
+    (v, i, a) => a.findIndex((t) => t.slug === v.slug) === i
+  );
+
+  localStorage.setItem("recentview", JSON.stringify(filterValue));
+  return { ...state, recentView: filterValue };
+};
+
 const removeWishlist = (state, id) => {
   const newData = state.whishlist.filter((v) => v.id != id);
   localStorage.setItem("whishlist", JSON.stringify(newData));
@@ -143,6 +158,10 @@ const reducer = (state, action) => {
       return addToWishlist(state, action.payload);
       break;
 
+    case "ADD_TO_RECENTVIEW":
+      return addToRecentView(state, action.payload);
+      break;
+
     case "ADD_TO_CART":
       return addToCart(state, action.payload);
       break;
@@ -157,6 +176,10 @@ const reducer = (state, action) => {
 
     case "SET_WHISHLIST_DATA":
       return { ...state, whishlist: action.payload };
+      break;
+
+    case "ADD_TO_RECENTVIEW_DATA":
+      return { ...state, recentView: action.payload };
       break;
 
     case "REMOVE_TO_WHISHLIST":

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppContext from "../storeData/AppContext";
 import { add, remove, update } from "./cart/updateCart";
 import ImageGallery from "./productDetails/ImageGallery";
@@ -121,6 +121,19 @@ export default function QuickView({ close, product, productImage, slug }) {
     };
     dispatch({ type: "ADD_TO_WHISHLIST", payload });
   };
+
+  useEffect(() => {
+    if (product) {
+      dispatch({
+        type: "ADD_TO_RECENTVIEW",
+        payload: {
+          slug: product.slug,
+          name: product.name,
+          image: product.thumbnail_image,
+        },
+      });
+    }
+  }, [product]);
 
   return (
     <>

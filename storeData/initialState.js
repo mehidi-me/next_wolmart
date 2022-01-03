@@ -7,6 +7,7 @@ const initialState = {
   user: null,
   generalSettings: {},
   siteData: {},
+  recentView: [],
 };
 
 export default initialState;

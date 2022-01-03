@@ -1,136 +1,75 @@
-import React from 'react'
+import React, { useContext } from "react";
+import AppContext from "../storeData/AppContext";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { imgPath } from "../pages/api/client";
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
+// import Swiper core and required modules
+import SwiperCore, { Pagination, Autoplay } from "swiper";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+SwiperCore.use([Autoplay]);
 export default function RecentView() {
-    return (
-        <div>
-            <h2 className="title title-underline mb-4 ls-normal appear-animate">Your Recent Views</h2>
-            <div className="swiper-container swiper-theme shadow-swiper appear-animate pb-4 mb-8" data-swiper-options="{
-                    'spaceBetween': 20,
-                    'slidesPerView': 2,
-                    'breakpoints': {
-                        '576': {
-                            'slidesPerView': 3
-                        },
-                        '768': {
-                            'slidesPerView': 5
-                        },
-                        '992': {
-                            'slidesPerView': 6
-                        },
-                        '1200': {
-                            'slidesPerView': 8
-                        }
-                    }
-                }">
-                <div className="swiper-wrapper row cols-xl-8 cols-lg-6 cols-md-4 cols-2">
-                    <div className="swiper-slide product-wrap mb-0">
-                        <div className="product text-center product-absolute">
-                            <figure className="product-media">
-                                <a href="product-defaproduct-default.html">
-                                    <img src="assets/images/demos/demo1/products/7-1.jpg" alt="Category image" width={130} height={146} style={{ backgroundColor: '#fff' }} />
-                                </a>
-                            </figure>
-                            <h4 className="product-name">
-                                <a href="product-default.html">Women's Fashion Handbag</a>
-                            </h4>
-                        </div>
-                    </div>
-                    {/* End of Product Wrap */}
-                    <div className="swiper-slide product-wrap mb-0">
-                        <div className="product text-center product-absolute">
-                            <figure className="product-media">
-                                <a href="product-defaproduct-default.html">
-                                    <img src="assets/images/demos/demo1/products/7-2.jpg" alt="Category image" width={130} height={146} style={{ backgroundColor: '#fff' }} />
-                                </a>
-                            </figure>
-                            <h4 className="product-name">
-                                <a href="product-default.html">Electric Frying Pan</a>
-                            </h4>
-                        </div>
-                    </div>
-                    {/* End of Product Wrap */}
-                    <div className="swiper-slide product-wrap mb-0">
-                        <div className="product text-center product-absolute">
-                            <figure className="product-media">
-                                <a href="product-defaproduct-default.html">
-                                    <img src="assets/images/demos/demo1/products/7-3.jpg" alt="Category image" width={130} height={146} style={{ backgroundColor: '#fff' }} />
-                                </a>
-                            </figure>
-                            <h4 className="product-name">
-                                <a href="product-default.html">Black Winter Skating</a>
-                            </h4>
-                        </div>
-                    </div>
-                    {/* End of Product Wrap */}
-                    <div className="swiper-slide product-wrap mb-0">
-                        <div className="product text-center product-absolute">
-                            <figure className="product-media">
-                                <a href="product-defaproduct-default.html">
-                                    <img src="assets/images/demos/demo1/products/7-4.jpg" alt="Category image" width={130} height={146} style={{ backgroundColor: '#fff' }} />
-                                </a>
-                            </figure>
-                            <h4 className="product-name">
-                                <a href="product-default.html">HD Television</a>
-                            </h4>
-                        </div>
-                    </div>
-                    {/* End of Product Wrap */}
-                    <div className="swiper-slide product-wrap mb-0">
-                        <div className="product text-center product-absolute">
-                            <figure className="product-media">
-                                <a href="product-defaproduct-default.html">
-                                    <img src="assets/images/demos/demo1/products/7-5.jpg" alt="Category image" width={130} height={146} style={{ backgroundColor: '#fff' }} />
-                                </a>
-                            </figure>
-                            <h4 className="product-name">
-                                <a href="product-default.html">Home Sofa</a>
-                            </h4>
-                        </div>
-                    </div>
-                    {/* End of Product Wrap */}
-                    <div className="swiper-slide product-wrap mb-0">
-                        <div className="product text-center product-absolute">
-                            <figure className="product-media">
-                                <a href="product-defaproduct-default.html">
-                                    <img src="assets/images/demos/demo1/products/7-6.jpg" alt="Category image" width={130} height={146} style={{ backgroundColor: '#fff' }} />
-                                </a>
-                            </figure>
-                            <h4 className="product-name">
-                                <a href="product-default.html">USB Receipt</a>
-                            </h4>
-                        </div>
-                    </div>
-                    {/* End of Product Wrap */}
-                    <div className="swiper-slide product-wrap mb-0">
-                        <div className="product text-center product-absolute">
-                            <figure className="product-media">
-                                <a href="product-defaproduct-default.html">
-                                    <img src="assets/images/demos/demo1/products/7-7.jpg" alt="Category image" width={130} height={146} style={{ backgroundColor: '#fff' }} />
-                                </a>
-                            </figure>
-                            <h4 className="product-name">
-                                <a href="product-default.html">Electric Rice-Cooker</a>
-                            </h4>
-                        </div>
-                    </div>
-                    {/* End of Product Wrap */}
-                    <div className="swiper-slide product-wrap mb-0">
-                        <div className="product text-center product-absolute">
-                            <figure className="product-media">
-                                <a href="product-defaproduct-default.html">
-                                    <img src="assets/images/demos/demo1/products/7-8.jpg" alt="Category image" width={130} height={146} style={{ backgroundColor: '#fff' }} />
-                                </a>
-                            </figure>
-                            <h4 className="product-name">
-                                <a href="product-default.html">Table Lamp</a>
-                            </h4>
-                        </div>
-                    </div>
-                    {/* End of Product Wrap */}
-                </div>
-                <div className="swiper-pagination" />
-            </div>
-        </div>
+  const {
+    state: { recentView },
+  } = useContext(AppContext);
 
-    )
+  if (recentView.length) {
+    const route = useRouter();
+
+    return (
+      <div>
+        <h2 className="title title-underline mb-4 ls-normal">
+          Your Recent Views
+        </h2>
+        <Swiper
+          breakpoints={{
+            320: {
+              slidesPerView: 2,
+            },
+            600: {
+              slidesPerView: 3,
+            },
+            700: {
+              slidesPerView: 5,
+            },
+            1000: {
+              slidesPerView: 6,
+            },
+          }}
+          className="swiper-theme"
+          autoplay={{ delay: 2000 }}
+        >
+          {recentView.map((v) => (
+            <SwiperSlide key={v.slug}>
+              <div className="product text-center product-absolute">
+                <figure className="product-media">
+                  <a href="product-defaproduct-default.html">
+                    <img
+                      src={imgPath + v.image}
+                      alt="Category image"
+                      width={130}
+                      height={146}
+                      style={{ backgroundColor: "#fff" }}
+                    />
+                  </a>
+                </figure>
+                <h4 className="product-name">
+                  <a onClick={() => route.push("/product/" + v.slug)}>
+                    {v.name}
+                  </a>
+                </h4>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    );
+  } else {
+    return null;
+  }
 }
