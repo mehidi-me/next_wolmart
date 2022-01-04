@@ -15,6 +15,18 @@ import { v1 as uuidv1 } from "uuid";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import FirebaseConfig from "../FirebaseConfig";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+// Initialize Firebase
+
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 function MyApp({
@@ -85,6 +97,10 @@ function MyApp({
     //   pid.push(id);
     // }
     // console.log(pid);
+    const app = initializeApp(FirebaseConfig);
+    const analytics = getAnalytics(app);
+
+    // console.log(analytics);
   }, []);
   return (
     <AppContext.Provider value={{ state, dispatch }}>

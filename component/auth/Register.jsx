@@ -5,6 +5,7 @@ import InputBox from "./InputBox";
 import ProgressBar from "../ProgressBar";
 import AppContext from "../../storeData/AppContext";
 import { useRouter } from "next/dist/client/router";
+import FirebaseAuth from "./FirebaseAuth";
 
 export default function Register() {
   const { dispatch } = useContext(AppContext);
@@ -168,14 +169,7 @@ export default function Register() {
             </div>
           </div>
           <p className="text-center">Sign in with social account</p>
-          <div className="social-icons social-icon-border-color d-flex justify-content-center">
-            <a
-              href="#"
-              className="social-icon social-facebook w-icon-facebook"
-            />
-            <a href="#" className="social-icon social-twitter w-icon-twitter" />
-            <a href="#" className="social-icon social-google fab fa-google" />
-          </div>
+          <FirebaseAuth />
         </div>
       </div>
     </div>
