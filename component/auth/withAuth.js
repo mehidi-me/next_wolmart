@@ -1,10 +1,7 @@
 import { useRouter } from "next/router";
-import { useContext } from "react";
 import { toast } from "react-toastify";
-import AppContext from "../../storeData/AppContext";
 const withAuth = (WrappedComponent) => {
   return (props) => {
-    // checks whether we are on client / browser or server.
     if (typeof window !== "undefined") {
       const Router = useRouter();
 

@@ -53,7 +53,7 @@ export default function ProductCard({
     const payload = {
       id: data.id,
       name: data.name,
-      price: data.base_price,
+      price: data.main_price,
       image: data.thumbnail_image,
       slug: data.slug,
     };
@@ -104,7 +104,7 @@ export default function ProductCard({
                   addToWhishlist({
                     id,
                     slug,
-                    base_price,
+                    main_price,
                     thumbnail_image,
                     name,
                   })

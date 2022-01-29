@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import AppContext from "../../storeData/AppContext";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function StickyFooter() {
   const {
@@ -12,17 +14,20 @@ export default function StickyFooter() {
       )
       .click();
   };
+
+  const router = useRouter();
   return (
     <div className="sticky-footer sticky-content fix-bottom">
-      <a href="demo1.html" className="sticky-link active">
+      <a onClick={() => router.push("/")} className="sticky-link active">
         <i className="w-icon-home" />
         <p>Home</p>
       </a>
-      <a href="shop-banner-sidebar.html" className="sticky-link">
+
+      <a onClick={() => router.push("/products")} className="sticky-link">
         <i className="w-icon-category" />
         <p>Shop</p>
       </a>
-      <a href="my-account.html" className="sticky-link">
+      <a onClick={() => router.push("/user/dashboard")} className="sticky-link">
         <i className="w-icon-account" />
         <p>Account</p>
       </a>
@@ -35,10 +40,13 @@ export default function StickyFooter() {
         </i>
         <p>Cart</p>
       </a>
-
-      <div className="header-search hs-toggle dir-up">
+      <a onClick={() => router.push("/wishlist")} className="sticky-link">
+        <i className="w-icon-heart" />
+        <p>Wishlist</p>
+      </a>
+      {/* <div className="header-search hs-toggle dir-up">
         <a href="#" className="search-toggle sticky-link">
-          <i className="w-icon-search" />
+          <i className="w-icon-heart" />
           <p>Search</p>
         </a>
         <form action="#" className="input-wrapper">
@@ -54,7 +62,7 @@ export default function StickyFooter() {
             <i className="w-icon-search" />
           </button>
         </form>
-      </div>
+      </div> */}
     </div>
   );
 }
